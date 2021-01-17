@@ -1,0 +1,9 @@
+vendor
+
+go.mod
+
+go.sum
+
+restapi.exe
+
+build
