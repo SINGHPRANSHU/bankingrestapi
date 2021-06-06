@@ -7,7 +7,7 @@ import (
 	"restapi/helper"
 	"restapi/models"
 	"go.mongodb.org/mongo-driver/bson"
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 		
 		
@@ -17,17 +17,22 @@ import (
 func GetCustomer(w http.ResponseWriter, r *http.Request) {
 	// set header.
    w.Header().Set("Content-Type", "application/json")
+   defer func() {
+	if r := recover(); r != nil {
+		helper.Insufficient("not found", w)
+	}
+  }()
 	
 
 	var customer models.Customer
 	// we get params with mux.
-	var params = mux.Vars(r)
+	// var params = mux.Vars(r)
 
 	// string to primitive.ObjectID
-	id,senderiderr := primitive.ObjectIDFromHex(params["id"])
+	id,senderiderr := primitive.ObjectIDFromHex(r.Header.Get("userid"))
 
 	if senderiderr != nil {
-		helper.Insufficient("server error", w)
+		helper.Insufficient("not found", w)
 		return
     }
 
@@ -36,8 +41,7 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 	err := collection.FindOne(context.TODO(), filter).Decode(&customer)
     
 	if err != nil {
-		helper.GetError(err, w)
-		return
+		panic(err)
 	}
 
 	json.NewEncoder(w).Encode(customer)

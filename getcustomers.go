@@ -1,16 +1,14 @@
 package main
 
-
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"restapi/helper"
 	"restapi/models"
 	"go.mongodb.org/mongo-driver/bson"
-		
-		
 )
 
 
@@ -19,7 +17,7 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 	(w).Header().Set("Access-Control-Allow-Origin", "*")
     (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
     (w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-
+   fmt.Print(r.Header.Get("userid"))
 	// we created Customer array
 	var customers []models.Customer
 

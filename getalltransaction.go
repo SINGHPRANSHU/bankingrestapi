@@ -3,14 +3,10 @@ package main
 import (
 	"context"
 	"encoding/json"
-	
 	"net/http"
-		"restapi/helper"
-		"restapi/models"
-		"go.mongodb.org/mongo-driver/bson"
-		
-		
-		
+	"restapi/helper"
+	"restapi/models"
+	"go.mongodb.org/mongo-driver/bson"		
 )
 
 func Getalltransaction(w http.ResponseWriter, r *http.Request)  {

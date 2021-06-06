@@ -38,7 +38,7 @@ func UpdateBalance(w http.ResponseWriter, r *http.Request) {
 		return
     }
 	
-	sendid,senderiderr :=  primitive.ObjectIDFromHex(balance.SenderID)
+	sendid,senderiderr :=  primitive.ObjectIDFromHex(r.Header.Get("userid"))
 	if senderiderr != nil {
 		helper.Insufficient("server error", w)
 		return
