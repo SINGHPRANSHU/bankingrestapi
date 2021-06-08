@@ -3,22 +3,25 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"restapi/helper"
 	"time"
+
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
 func MiddlewareValidateUser(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Header["Token"] != nil {
-			token, err := jwt.Parse(r.Header["Token"][0], func(t *jwt.Token) (interface{}, error) {
+		if r.Header["Authorization"] != nil {
+			token, err := jwt.Parse(r.Header["Authorization"][0], func(t *jwt.Token) (interface{}, error) {
                if _,ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 				   return nil, fmt.Errorf("there is an error")
 			   }
-			   return []byte("secret"), nil
+			   return []byte(os.Getenv("secret")), nil
 			})
 			if err!= nil {
 				helper.Insufficient("not authorized",w)
+				return
 			}
 
 			if token.Valid {
@@ -33,8 +36,7 @@ func MiddlewareValidateUser(next http.Handler) http.Handler {
 			
 			
 		}
-		// fmt.Fprintf(w, "not authorized")
-		return
+		helper.Insufficient("not authorized",w)
 		// call the next handler
 		
 	})

@@ -14,13 +14,15 @@ import (
 var collection  = helper.ConnectDB()	
 var transaction =helper.ConnectTransactionDb()
 func main()  {
+	
+	//  os.Setenv("PORT","4000")
 	 
     //init mux
 	router:=mux.NewRouter()
 	r := router.Methods(http.MethodGet,http.MethodPost).Subrouter()
 	//routes
 	r.HandleFunc("/api/customers",GetCustomers).Methods("GET")
-	r.HandleFunc("/api/customer/{id}",GetCustomer).Methods("GET")
+	r.HandleFunc("/api/customer",GetCustomer).Methods("GET")
 	r.HandleFunc("/api/customer/update", UpdateBalance).Methods("POST")
 	r.HandleFunc("/api/alltransaction",Getalltransaction).Methods("GET")
 	r.Use(MiddlewareValidateUser)
