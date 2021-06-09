@@ -14,8 +14,6 @@ import (
 var collection  = helper.ConnectDB()	
 var transaction =helper.ConnectTransactionDb()
 func main()  {
-	
-	//  os.Setenv("PORT","4000")
 	 
     //init mux
 	router:=mux.NewRouter()

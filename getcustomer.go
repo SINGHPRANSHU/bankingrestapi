@@ -53,9 +53,6 @@ func GetCustomer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// for _, value := range customer.IDs {
-	// 	fmt.Println(value)
-	// }
 
 	cur, err := transaction.Find(context.TODO(), bson.M{"_id": bson.M{"$in": customer.IDs}})
 

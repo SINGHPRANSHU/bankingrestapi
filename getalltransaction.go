@@ -6,7 +6,9 @@ import (
 	"net/http"
 	"restapi/helper"
 	"restapi/models"
-	"go.mongodb.org/mongo-driver/bson"		
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func Getalltransaction(w http.ResponseWriter, r *http.Request)  {
@@ -15,8 +17,14 @@ func Getalltransaction(w http.ResponseWriter, r *http.Request)  {
 
 
 	var balances []models.BalanceNew
+	id,senderiderr := primitive.ObjectIDFromHex(r.Header.Get("userid"))
+	if senderiderr != nil {
+		helper.Insufficient("not found", w)
+		return
+    }
 
-	cur, err := transaction.Find(context.TODO(), bson.M{})
+
+	cur, err := transaction.Find(context.TODO(), bson.M{"_id": id})
 
 	if err != nil {
 		helper.GetError(err, w)

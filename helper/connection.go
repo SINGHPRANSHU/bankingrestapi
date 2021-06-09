@@ -15,7 +15,6 @@ import (
 // If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
 func ConnectDB() *mongo.Collection {
 	
-	
 	// Set client options
 	clientOptions := options.Client().ApplyURI(os.Getenv("dbconnectionstring"))
 

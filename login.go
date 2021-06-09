@@ -39,12 +39,9 @@ func Login(w http.ResponseWriter, r *http.Request){
 		helper.Insufficient("request body is not valid", w)
 		return
     }
-	fmt.Println(user,"1")
 	filter := bson.M{"email":user.Email, "password": user.Password}
 	recerr := collection.FindOne(context.TODO(), filter).Decode(&user)
-	fmt.Println(user,"2")
 	if recerr != nil {
-		fmt.Print(recerr)
 		// helper.GetError(recerr, w)
 		panic("cannot find user")
 		// return
