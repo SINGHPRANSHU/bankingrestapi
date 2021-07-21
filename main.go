@@ -60,7 +60,7 @@ func main()  {
 	//routes
 	r.HandleFunc("/api/customers",GetCustomers).Methods("GET")
 	r.HandleFunc("/api/customer",GetCustomer).Methods("GET")
-	r.HandleFunc("/api/customer/update", UpdateBalance).Methods("POST")
+	r.HandleFunc("/api/customer/update", Transfer).Methods("POST")
 	r.HandleFunc("/api/alltransaction",Getalltransaction).Methods("GET")
 	r.Use(MiddlewareValidateUser)
 	
