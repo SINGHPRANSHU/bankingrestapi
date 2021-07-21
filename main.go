@@ -54,7 +54,6 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.FileServer(http.Dir(h.staticPath)).ServeHTTP(w, r)
 }
 func main()  {
-	 
     //init mux
 	router:=mux.NewRouter()
 	r := router.Methods(http.MethodGet,http.MethodPost).Subrouter()
